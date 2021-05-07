@@ -100,14 +100,14 @@ print(paste("effectiveness=" ,or*100,"%"))
 
 
 
-# females
+# DrugUser
 ```{r}
-barchartGC(~infected + treatment,data=FemaleData)
-barchartGC(~infected + treatment,FemaleData, type="percent")
+barchartGC(~infected + treatment,data=DrugData)
+barchartGC(~infected + treatment,DrugData, type="percent")
 
 ```
-     
-The plot shows that the vaccine is effective in protecting females.
+         
+The plot shows that the vaccine is effective in protecting drug users.
 
 
 
@@ -115,7 +115,7 @@ The plot shows that the vaccine is effective in protecting females.
 ### Numerical Summaries  
 
 ```{r}
-table1 <- xtabs(~infected + treatment, data=FemaleData)
+table1 <- xtabs(~infected + treatment, data=DrugData)
 rowPerc(table1)
 colPerc(table1)
 ```
@@ -126,7 +126,7 @@ colPerc(table1)
 chisq.test(table1)
 chisqtestGC(table1)
 fisher.test(table1)
-or=1/(1+0.4889)
+or=1/(1+0.5445)
 
 print(paste("oddsratio= ",or))
 print(paste("effectiveness=" ,or*100,"%"))
@@ -148,7 +148,7 @@ The plot shows that the vaccine is not effective in protecting LGBTQ.
 ### Numerical Summaries  
 
 ```{r}
-table1 <- xtabs(~infected + treatment, data=FemaleData)
+table1 <- xtabs(~infected + treatment, data=LGBTQ)
 rowPerc(table1)
 colPerc(table1)
 ```
@@ -159,11 +159,41 @@ colPerc(table1)
 chisq.test(table1)
 chisqtestGC(table1)
 fisher.test(table1)
-or=1/(1+0.4889)
+or=.4889/(1+0.4889)
 
 print(paste("oddsratio= ",or))
 print(paste("effectiveness=" ,or*100,"%"))
 ```
+
+# Conclusions
+
+
+
+For the females it shows that the vaccines is very effective for them if they get it. 
+
+
+
+# Conclusions
+
+As I looked at the graph and plots for the males it shows that the vaccine is not effective in protecting them. 
+
+
+
+# Conclusions
+
+
+As I looked at the graph for LGBTQ the vaccine is not very effective if there were to get covid.
+
+
+
+
+# Conclusions
+
+
+
+Furthermore, as I looked at the graph for DrugUser the vaccine is effective if they were to get covid. 
+
+
 
 
 
