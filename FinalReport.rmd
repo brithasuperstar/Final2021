@@ -16,9 +16,165 @@ require(forcats)
 OldData <-read.csv(file="covid91.csv",header=TRUE)
 #recode to remove the annoying "X" from the dataframe
 FinalData <- OldData %>% mutate(infected = recode(infected, aids = "covid", none = "OK" )) %>% select(-one_of("X"))
+
+# this is the slick way
+FinalData= select(FinalData, ! is.numeric)
+FinalData=purrr::map(FinalData, as.factor)
+FinalData = data.frame(FinalData)
 ```
 
 # Introduction
 
 A new  preventative vaccine (covid91) is under test in clinical trials. Given the nature of this vaccine it is suspected that the drug may exhibit different effectiveness across the variety of subpopulations tracked. Consider population subgroups consisting of Males, Females, just the drug users, and just those in the LGBTQ community. Write a complete report that separately considers this drug for each subgroup and your recommendations as to whether people in the subgroup should take the vaccine. Structure your report in four sections each devoted to one of the four subgroups, use null and alternative hypothesis statements and correct statistical verbage when referencing p-values in conclusions.
+
+```{r}
+MaleData=filter(FinalData,sex=="guy")
+FemaleData=filter(FinalData, sex=="gal")
+DrugData=filter(FinalData,DrugUser=="yes")
+LGBTQ=filter(FinalData,LGBTQ=="gay")
+```
+
+# male
+```{r}
+barchartGC(~infected + treatment,data=MaleData)
+barchartGC(~infected + treatment,MaleData, type="percent")
+
+```
+  
+The plot shows that the vaccine is not effective in protecting males.
+
+
+
+
+### Numerical Summaries  
+
+```{r}
+table1 <- xtabs(~infected + treatment, data=MaleData)
+rowPerc(table1)
+colPerc(table1)
+```
+
+## Inferential  
+
+```{r}
+chisq.test(table1)
+chisqtestGC(table1)
+fisher.test(table1)
+or=1/(1+1.4738)
+
+print(paste("oddsratio= ",or))
+print(paste("effectiveness=" ,or*100,"%"))
+```
+
+# females
+```{r}
+barchartGC(~infected + treatment,data=FemaleData)
+barchartGC(~infected + treatment,FemaleData, type="percent")
+
+```
+     
+The plot shows that the vaccine is effective in protecting females.
+
+
+
+
+### Numerical Summaries  
+
+```{r}
+table1 <- xtabs(~infected + treatment, data=FemaleData)
+rowPerc(table1)
+colPerc(table1)
+```
+
+## Inferential  
+
+```{r}
+chisq.test(table1)
+chisqtestGC(table1)
+fisher.test(table1)
+or=1/(1+0.4889)
+
+print(paste("oddsratio= ",or))
+print(paste("effectiveness=" ,or*100,"%"))
+```
+
+
+
+# females
+```{r}
+barchartGC(~infected + treatment,data=FemaleData)
+barchartGC(~infected + treatment,FemaleData, type="percent")
+
+```
+     
+The plot shows that the vaccine is effective in protecting females.
+
+
+
+
+### Numerical Summaries  
+
+```{r}
+table1 <- xtabs(~infected + treatment, data=FemaleData)
+rowPerc(table1)
+colPerc(table1)
+```
+
+## Inferential  
+
+```{r}
+chisq.test(table1)
+chisqtestGC(table1)
+fisher.test(table1)
+or=1/(1+0.4889)
+
+print(paste("oddsratio= ",or))
+print(paste("effectiveness=" ,or*100,"%"))
+```
+
+
+# LGBTQ
+```{r}
+barchartGC(~infected + treatment,data=LGBTQ)
+barchartGC(~infected + treatment,LGBTQ, type="percent")
+
+```
+          
+The plot shows that the vaccine is not effective in protecting LGBTQ.
+
+
+
+
+### Numerical Summaries  
+
+```{r}
+table1 <- xtabs(~infected + treatment, data=FemaleData)
+rowPerc(table1)
+colPerc(table1)
+```
+
+## Inferential  
+
+```{r}
+chisq.test(table1)
+chisqtestGC(table1)
+fisher.test(table1)
+or=1/(1+0.4889)
+
+print(paste("oddsratio= ",or))
+print(paste("effectiveness=" ,or*100,"%"))
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
 
